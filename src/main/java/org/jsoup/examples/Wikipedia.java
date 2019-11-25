@@ -1,4 +1,4 @@
-package org.jsoup.examples;
+package main.java.org.jsoup.examples;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

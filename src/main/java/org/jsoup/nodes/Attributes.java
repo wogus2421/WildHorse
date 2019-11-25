@@ -169,7 +169,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
      @param attribute attribute with case sensitive key
      @return these attributes, for chaining
      */
-    public Attributes put(Attribute attribute) {
+    public Attributes put(org.jsoup.nodes.Attribute attribute) {
         Validate.notNull(attribute);
         put(attribute.getKey(), attribute.getValue());
         attribute.parent = this;
@@ -258,7 +258,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
 
     }
 
-    public Iterator<Attribute> iterator() {
+    public Iterator<org.jsoup.nodes.Attribute> iterator() {
         return new Iterator<Attribute>() {
             int i = 0;
 
@@ -320,7 +320,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
         return StringUtil.releaseBuilder(sb);
     }
 
-    final void html(final Appendable accum, final Document.OutputSettings out) throws IOException {
+    final void html(final Appendable accum, final org.jsoup.nodes.Document.OutputSettings out) throws IOException {
         final int sz = size;
         for (int i = 0; i < sz; i++) {
             // inlined from Attribute.html()

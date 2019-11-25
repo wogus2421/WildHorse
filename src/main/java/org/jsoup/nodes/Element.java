@@ -50,6 +50,29 @@ public class Element extends Node {
      * Create a new, standalone element.
      * @param tag tag name
      */
+
+    public static class Builder {
+        private Tag tag;
+
+        private Attributes attributes = new Attributes();
+        private String baseUri = "";
+
+        public Builder setTag(String tag){
+            this.tag = Tag.valueOf(tag);
+            return this;
+        }
+
+        public Builder setUri(String baseUri){
+            this.baseUri = baseUri;
+            return this;
+        }
+
+        public Builder setAttributes(Attributes attributes){
+            this.attributes = attributes;
+            return this;
+        }
+    }
+
     public Element(String tag) {
         this(Tag.valueOf(tag), "", new Attributes());
     }
