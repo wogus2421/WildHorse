@@ -31,13 +31,13 @@ public class HtmlTreeBuilder extends TreeBuilder {
     static final String[] TagSearchSelectScope = new String[]{"optgroup", "option"};
     static final String[] TagSearchEndTags = new String[]{"dd", "dt", "li", "optgroup", "option", "p", "rp", "rt"};
     static final String[] TagSearchSpecial = new String[]{"address", "applet", "area", "article", "aside", "base", "basefont", "bgsound",
-        "blockquote", "body", "br", "button", "caption", "center", "col", "colgroup", "command", "dd",
-        "details", "dir", "div", "dl", "dt", "embed", "fieldset", "figcaption", "figure", "footer", "form",
-        "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html",
-        "iframe", "img", "input", "isindex", "li", "link", "listing", "marquee", "menu", "meta", "nav",
-        "noembed", "noframes", "noscript", "object", "ol", "p", "param", "plaintext", "pre", "script",
-        "section", "select", "style", "summary", "table", "tbody", "td", "textarea", "tfoot", "th", "thead",
-        "title", "tr", "ul", "wbr", "xmp"};
+            "blockquote", "body", "br", "button", "caption", "center", "col", "colgroup", "command", "dd",
+            "details", "dir", "div", "dl", "dt", "embed", "fieldset", "figcaption", "figure", "footer", "form",
+            "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html",
+            "iframe", "img", "input", "isindex", "li", "link", "listing", "marquee", "menu", "meta", "nav",
+            "noembed", "noframes", "noscript", "object", "ol", "p", "param", "plaintext", "pre", "script",
+            "section", "select", "style", "summary", "table", "tbody", "td", "textarea", "tfoot", "th", "thead",
+            "title", "tr", "ul", "wbr", "xmp"};
 
     public static final int MaxScopeSearchDepth = 100; // prevents the parser bogging down in exceptionally broken pages
 
@@ -106,12 +106,20 @@ public class HtmlTreeBuilder extends TreeBuilder {
             else
                 tokeniser.transition(TokeniserState.Data); // default
 
+<<<<<<< HEAD
             root = new Element
                     .Builder()
                     .tag(Tag.valueOf("html", settings))
                     .baseUri(baseUri)
                     .build();
 
+=======
+            Tag htmlTag = Tag.valueOf("html", settings);
+            root = new Element
+                    .Builder(htmlTag)
+                    .setUri(baseUri)
+                    .build();
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
             doc.appendChild(root);
             stack.add(root);
             resetInsertionMode();
@@ -217,6 +225,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
             tokeniser.emit(emptyEnd.reset().name(el.tagName()));  // ensure we get out of whatever state we are in. emitted for yielded processing
             return el;
         }
+<<<<<<< HEAD
 
         Element el = new Element
                 .Builder()
@@ -225,15 +234,31 @@ public class HtmlTreeBuilder extends TreeBuilder {
                 .attributes(settings.normalizeAttributes(startTag.attributes))
                 .build();
 
+=======
+        Tag sTag = Tag.valueOf(startTag.name(), settings);
+        //Element el = new Element(Tag.valueOf(startTag.name(), settings), baseUri, settings.normalizeAttributes(startTag.attributes));
+        Element el = new Element // dpChanged
+                .Builder(sTag)
+                .setUri(baseUri)
+                .setAttributes(settings.normalizeAttributes(startTag.attributes))
+                .build();
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
         insert(el);
         return el;
     }
 
     Element insertStartTag(String startTagName) {
+<<<<<<< HEAD
         Element el =  new Element
                 .Builder()
                 .tag(Tag.valueOf(startTagName, settings))
                 .baseUri(baseUri)
+=======
+        Tag sTag = Tag.valueOf(startTagName, settings);
+        Element el = new Element // dpChanged
+                .Builder(sTag)
+                .setUri(baseUri)
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
                 .build();
         insert(el);
         return el;
@@ -246,6 +271,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
 
     Element insertEmpty(Token.StartTag startTag) {
         Tag tag = Tag.valueOf(startTag.name(), settings);
+<<<<<<< HEAD
         Element el = new Element
                 .Builder()
                 .tag(tag)
@@ -253,6 +279,14 @@ public class HtmlTreeBuilder extends TreeBuilder {
                 .attributes(startTag.attributes)
                 .build();
 
+=======
+        //Element el = new Element(tag, baseUri, startTag.attributes);
+        Element el = new Element
+                .Builder(tag)
+                .setUri(baseUri)
+                .setAttributes(startTag.attributes)
+                .build();
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
         insertNode(el);
         if (startTag.isSelfClosing()) {
             if (tag.isKnownTag()) {

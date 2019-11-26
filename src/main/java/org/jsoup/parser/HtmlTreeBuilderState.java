@@ -613,12 +613,21 @@ enum HtmlTreeBuilderState {
                                 } else if (node == formatEl)
                                     break;
 
+<<<<<<< HEAD
                                 Element replacement = new Element
                                         .Builder()
                                         .tag(Tag.valueOf(node.nodeName(), ParseSettings.preserveCase))
                                         .baseUri(tb.getBaseUri())
                                         .build();
 
+=======
+                                Tag sTag = Tag.valueOf(node.nodeName(), ParseSettings.preserveCase);
+                                Element replacement = new Element
+                                        .Builder(sTag)
+                                        .setUri(tb.getBaseUri())
+                                        .build();
+                                //Element replacement = new Element(Tag.valueOf(node.nodeName(), ParseSettings.preserveCase), tb.getBaseUri());
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
                                 // case will follow the original node (so honours ParseSettings)
                                 tb.replaceActiveFormattingElement(node, replacement);
                                 tb.replaceOnStack(node, replacement);
@@ -645,12 +654,21 @@ enum HtmlTreeBuilderState {
                                 commonAncestor.appendChild(lastNode);
                             }
 
+<<<<<<< HEAD
                             Element adopter = new Element
                                     .Builder()
                                     .tag(formatEl.tag())
                                     .baseUri(tb.getBaseUri())
                                     .build();
 
+=======
+                            Tag sTag = formatEl.tag();
+                            Element adopter = new Element
+                                    .Builder(sTag)
+                                    .setUri(tb.getBaseUri())
+                                    .build();
+                            //Element adopter = new Element(formatEl.tag(), tb.getBaseUri());
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
                             adopter.attributes().addAll(formatEl.attributes());
                             Node[] childNodes = furthestBlock.childNodes().toArray(new Node[0]);
                             for (Node childNode : childNodes) {

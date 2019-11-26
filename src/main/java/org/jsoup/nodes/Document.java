@@ -33,10 +33,22 @@ public class Document extends Element {
 
 
     public Document(String baseUri) {
+<<<<<<< HEAD
         super(new Element
                 .Builder()
                 .tag(Tag.valueOf("#root", ParseSettings.htmlDefault))
                 .baseUri(baseUri));
+=======
+        Tag sTag = Tag.valueOf("#root", ParseSettings.htmlDefault);
+        Element e = new Element
+                .Builder(sTag)
+                .setUri(baseUri)
+                .build();
+        if(e.childNodes == null){
+            System.out.println("ㅎㅎ null 이지롱");
+        }
+        //super(Tag.valueOf("#root", ParseSettings.htmlDefault), baseUri);
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
         this.location = baseUri;
     }
 
@@ -113,11 +125,21 @@ public class Document extends Element {
      @return new element
      */
     public Element createElement(String tagName) {
+<<<<<<< HEAD
         return new Element
                 .Builder()
                 .tag(Tag.valueOf(tagName, ParseSettings.preserveCase))
                 .baseUri(this.baseUri())
                 .build();
+=======
+        Tag sTag = Tag.valueOf(tagName, ParseSettings.preserveCase);
+        Element e = new Element
+                .Builder(sTag)
+                .setUri(this.baseUri())
+                .build();
+        return e;
+        //return new Element(Tag.valueOf(tagName, ParseSettings.preserveCase), this.baseUri());
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
     }
 
     /**

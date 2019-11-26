@@ -25,11 +25,24 @@ public class FormElement extends Element {
      * @param attributes initial attributes
      */
     public FormElement(Tag tag, String baseUri, Attributes attributes) {
+<<<<<<< HEAD
         super(new Element
                 .Builder()
                 .tag(tag)
                 .baseUri(baseUri)
                 .attributes(attributes));
+=======
+        //super(tag, baseUri, attributes); //dpChanged
+        Element e = new Element
+                .Builder(tag)
+                .setUri(baseUri)
+                .setAttributes(attributes)
+                .build();
+    }
+
+    protected FormElement(Builder builder) {
+        super(builder);
+>>>>>>> 083891f92338d140cf198a2d44139e971df5a134
     }
 
     /**
