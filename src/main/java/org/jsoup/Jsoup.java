@@ -9,6 +9,7 @@ import org.jsoup.safety.Cleaner;
 import org.jsoup.safety.Whitelist;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -247,7 +248,7 @@ public class Jsoup {
         Opener.open(html, baseUri, parser);
     }
 
-    public static void open(String html) {
+    public static void open(FileInputStream fileStream, String html) {
         Opener.open(html);
     }
 
