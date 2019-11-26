@@ -166,7 +166,12 @@ public class NodeTest {
         assertTrue(doc.root() == doc);
         assertTrue(doc.root() == doc.ownerDocument());
 
-        Element standAlone = new Element(Tag.valueOf("p"), "");
+        Element standAlone = new Element
+                .Builder()
+                .tag(Tag.valueOf("p"))
+                .baseUri("")
+                .build();
+
         assertTrue(standAlone.parent() == null);
         assertTrue(standAlone.root() == standAlone);
         assertTrue(standAlone.ownerDocument() == null);
@@ -174,7 +179,12 @@ public class NodeTest {
 
     @Test public void before() {
         Document doc = Jsoup.parse("<p>One <b>two</b> three</p>");
-        Element newNode = new Element(Tag.valueOf("em"), "");
+        Element newNode = new Element
+                .Builder()
+                .tag(Tag.valueOf("em"))
+                .baseUri("")
+                .build();
+
         newNode.appendText("four");
 
         doc.select("b").first().before(newNode);
@@ -186,7 +196,12 @@ public class NodeTest {
 
     @Test public void after() {
         Document doc = Jsoup.parse("<p>One <b>two</b> three</p>");
-        Element newNode = new Element(Tag.valueOf("em"), "");
+        Element newNode = new Element
+                .Builder()
+                .tag(Tag.valueOf("em"))
+                .baseUri("")
+                .build();
+
         newNode.appendText("four");
 
         doc.select("b").first().after(newNode);
@@ -235,8 +250,17 @@ public class NodeTest {
     }
 
     @Test public void orphanNodeReturnsNullForSiblingElements() {
-        Node node = new Element(Tag.valueOf("p"), "");
-        Element el = new Element(Tag.valueOf("p"), "");
+        Node node = new Element
+                .Builder()
+                .tag(Tag.valueOf("p"))
+                .baseUri("")
+                .build();
+
+        Element el = new Element
+                .Builder()
+                .tag(Tag.valueOf("p"))
+                .baseUri("")
+                .build();
 
         assertEquals(0, node.siblingIndex());
         assertEquals(0, node.siblingNodes().size());

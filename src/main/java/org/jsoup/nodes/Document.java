@@ -23,14 +23,20 @@ public class Document extends Element {
     private String location;
     private boolean updateMetaCharset = false;
 
+
     /**
      Create a new, empty Document.
      @param baseUri base URI of document
      @see org.jsoup.Jsoup#parse
      @see #createShell
      */
+
+
     public Document(String baseUri) {
-        super(Tag.valueOf("#root", ParseSettings.htmlDefault), baseUri);
+        super(new Element
+                .Builder()
+                .tag(Tag.valueOf("#root", ParseSettings.htmlDefault))
+                .baseUri(baseUri));
         this.location = baseUri;
     }
 
@@ -107,7 +113,11 @@ public class Document extends Element {
      @return new element
      */
     public Element createElement(String tagName) {
-        return new Element(Tag.valueOf(tagName, ParseSettings.preserveCase), this.baseUri());
+        return new Element
+                .Builder()
+                .tag(Tag.valueOf(tagName, ParseSettings.preserveCase))
+                .baseUri(this.baseUri())
+                .build();
     }
 
     /**

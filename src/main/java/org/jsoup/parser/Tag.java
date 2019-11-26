@@ -72,6 +72,7 @@ public class Tag {
                 tag.isBlock = false;
             }
         }
+
         return tag;
     }
 

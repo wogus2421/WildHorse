@@ -46,13 +46,61 @@ public class Element extends Node {
     private Attributes attributes;
     private String baseUri;
 
+    public static class Builder {
+        private Tag tag;
+
+        private Attributes attributes = null;
+        private String baseUri = "";
+
+        public Builder() {
+        }
+
+        public Builder self() {
+            return this;
+        }
+
+        public Builder tag(String val) {
+            tag = Tag.valueOf(val);
+            return this;
+        }
+
+        public Builder tag(Tag val) {
+            Validate.notNull(val);
+            tag = val;
+            return this;
+        }
+
+        public Builder attributes(Attributes val) {
+            attributes = val;
+            return this;
+        }
+
+        public Builder baseUri(String val) {
+            Validate.notNull(val);
+            baseUri = val;
+            return this;
+        }
+
+        public Element build() {
+            return new Element(this);
+        }
+    }
+
+    public Element(Builder builder) {
+        childNodes = EMPTY_NODES;
+        tag = builder.tag;
+        attributes = builder.attributes;
+        baseUri = builder.baseUri;
+    }
+
+
     /**
      * Create a new, standalone element.
      * @param tag tag name
      */
-    public Element(String tag) {
-        this(Tag.valueOf(tag), "", new Attributes());
-    }
+//    public Element(String tag) {
+//        this(Tag.valueOf(tag), "", new Attributes());
+//    }
 
     /**
      * Create a new, standalone Element. (Standalone in that is has no parent.)
@@ -80,9 +128,9 @@ public class Element extends Node {
      *            string, but not null.
      * @see Tag#valueOf(String, ParseSettings)
      */
-    public Element(Tag tag, String baseUri) {
-        this(tag, baseUri, null);
-    }
+//    public Element(Tag tag, String baseUri) {
+//        this(tag, baseUri, null);
+//    }
 
     protected List<Node> ensureChildNodes() {
         if (childNodes == EMPTY_NODES) {
@@ -493,7 +541,11 @@ public class Element extends Node {
      *  {@code parent.appendElement("h1").attr("id", "header").text("Welcome");}
      */
     public Element appendElement(String tagName) {
-        Element child = new Element(Tag.valueOf(tagName, NodeUtils.parser(this).settings()), baseUri());
+        Element child = new Element
+                .Builder()
+                .tag(Tag.valueOf(tagName, NodeUtils.parser(this).settings()))
+                .baseUri(baseUri())
+                .build();
         appendChild(child);
         return child;
     }
@@ -506,7 +558,12 @@ public class Element extends Node {
      *  {@code parent.prependElement("h1").attr("id", "header").text("Welcome");}
      */
     public Element prependElement(String tagName) {
-        Element child = new Element(Tag.valueOf(tagName, NodeUtils.parser(this).settings()), baseUri());
+        Element child = new Element
+                .Builder()
+                .tag(Tag.valueOf(tagName, NodeUtils.parser(this).settings()))
+                .baseUri(baseUri())
+                .build();
+
         prependChild(child);
         return child;
     }
@@ -1469,7 +1526,13 @@ public class Element extends Node {
     @Override
     public Element shallowClone() {
         // simpler than implementing a clone version with no child copy
-        return new Element(tag, baseUri, attributes == null ? null : attributes.clone());
+        return new Element
+                .Builder()
+                .tag(tag)
+                .baseUri(baseUri)
+                .attributes(attributes == null ? null : attributes.clone())
+                .build();
+
     }
 
     @Override

@@ -613,7 +613,12 @@ enum HtmlTreeBuilderState {
                                 } else if (node == formatEl)
                                     break;
 
-                                Element replacement = new Element(Tag.valueOf(node.nodeName(), ParseSettings.preserveCase), tb.getBaseUri());
+                                Element replacement = new Element
+                                        .Builder()
+                                        .tag(Tag.valueOf(node.nodeName(), ParseSettings.preserveCase))
+                                        .baseUri(tb.getBaseUri())
+                                        .build();
+
                                 // case will follow the original node (so honours ParseSettings)
                                 tb.replaceActiveFormattingElement(node, replacement);
                                 tb.replaceOnStack(node, replacement);
@@ -640,7 +645,12 @@ enum HtmlTreeBuilderState {
                                 commonAncestor.appendChild(lastNode);
                             }
 
-                            Element adopter = new Element(formatEl.tag(), tb.getBaseUri());
+                            Element adopter = new Element
+                                    .Builder()
+                                    .tag(formatEl.tag())
+                                    .baseUri(tb.getBaseUri())
+                                    .build();
+
                             adopter.attributes().addAll(formatEl.attributes());
                             Node[] childNodes = furthestBlock.childNodes().toArray(new Node[0]);
                             for (Node childNode : childNodes) {

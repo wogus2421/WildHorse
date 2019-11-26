@@ -9,7 +9,11 @@ import org.jsoup.parser.Tag;
 public class PseudoTextElement extends Element {
 
     public PseudoTextElement(Tag tag, String baseUri, Attributes attributes) {
-        super(tag, baseUri, attributes);
+        super(new Element
+                .Builder()
+                .tag(tag)
+                .baseUri(baseUri)
+                .attributes(attributes));
     }
 
     @Override

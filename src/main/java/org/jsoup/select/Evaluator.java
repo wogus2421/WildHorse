@@ -762,8 +762,12 @@ public abstract class Evaluator {
 
             List<TextNode> textNodes = element.textNodes();
             for (TextNode textNode : textNodes) {
-                PseudoTextElement pel = new PseudoTextElement(
-                    org.jsoup.parser.Tag.valueOf(element.tagName()), element.baseUri(), element.attributes());
+                PseudoTextElement pel = (PseudoTextElement) new PseudoTextElement
+                        .Builder()
+                        .tag(org.jsoup.parser.Tag.valueOf(element.tagName()))
+                        .baseUri(element.baseUri())
+                        .attributes(element.attributes())
+                        .build();
                 textNode.replaceWith(pel);
                 pel.appendChild(textNode);
             }

@@ -394,8 +394,12 @@ public class ElementTest {
     }
     
     @Test public void testAddBooleanAttribute() {
-        Element div = new Element(Tag.valueOf("div"), "");
-        
+        Element div = new Element
+                .Builder()
+                .tag(Tag.valueOf("div"))
+                .baseUri("")
+                .build();
+
         div.attr("true", true);
         
         div.attr("false", "value");
@@ -828,8 +832,18 @@ public class ElementTest {
         assertEquals(3, p1s.get(1).siblingIndex()); // should be last
 
         List<Node> els = new ArrayList<>();
-        Element el1 = new Element(Tag.valueOf("span"), "").text("Span1");
-        Element el2 = new Element(Tag.valueOf("span"), "").text("Span2");
+        Element el1 = new Element
+                .Builder()
+                .tag(Tag.valueOf("span"))
+                .baseUri("")
+                .build()
+                .text("Span1");
+        Element el2 = new Element
+                .Builder()
+                .tag(Tag.valueOf("span"))
+                .baseUri("")
+                .build()
+                .text("Span2");
         TextNode tn1 = new TextNode("Text4");
         els.add(el1);
         els.add(el2);
@@ -996,13 +1010,22 @@ public class ElementTest {
 
     @Test
     public void testHashcodeIsStableWithContentChanges() {
-        Element root = new Element(Tag.valueOf("root"), "");
+        Element root = new Element
+                .Builder()
+                .tag(Tag.valueOf("root"))
+                .baseUri("")
+                .build();
 
         HashSet<Element> set = new HashSet<>();
         // Add root node:
         set.add(root);
 
-        root.appendChild(new Element(Tag.valueOf("a"), ""));
+        root.appendChild(new Element
+                .Builder()
+                .tag(Tag.valueOf("a"))
+                .baseUri("")
+                .build());
+
         assertTrue(set.contains(root));
     }
 
@@ -1067,7 +1090,7 @@ public class ElementTest {
 
 
     @Test public void elementByTagName() {
-        Element a = new Element("P");
+        Element a = new Element.Builder().tag("P").build();
         assertTrue(a.tagName().equals("P"));
     }
 
@@ -1110,8 +1133,8 @@ public class ElementTest {
         assertEquals(2, els.size()); // the two Ps
         assertEquals(3, nodes.size()); // the "Three" textnode
 
-        Element p3 = new Element("p").text("P3");
-        Element p4 = new Element("p").text("P4");
+        Element p3 = new Element.Builder().tag("p").build().text("P3");
+        Element p4 = new Element.Builder().tag("p").build().text("P4");
         div.insertChildren(1, p3);
         div.insertChildren(3, p4);
         Elements els2 = div.children();
@@ -1405,7 +1428,7 @@ public class ElementTest {
 
     @Test
     public void testClearAttributes() {
-        Element el = new Element("a").attr("href", "http://example.com").text("Hello");
+        Element el = new Element.Builder().tag("a").build().attr("href", "http://example.com").text("Hello");
         assertEquals("<a href=\"http://example.com\">Hello</a>", el.outerHtml());
         Element el2 = el.clearAttributes(); // really just force testing the return type is Element
         assertSame(el, el2);
@@ -1414,7 +1437,7 @@ public class ElementTest {
 
     @Test
     public void testRemoveAttr() {
-        Element el = new Element("a")
+        Element el = new Element.Builder().tag("a").build()
             .attr("href", "http://example.com")
             .attr("id", "1")
             .text("Hello");
@@ -1426,7 +1449,7 @@ public class ElementTest {
 
     @Test
     public void testRoot() {
-        Element el = new Element("a");
+        Element el = new Element.Builder().tag("a").build();
         el.append("<span>Hello</span>");
         assertEquals("<a><span>Hello</span></a>", el.outerHtml());
         Element span = el.selectFirst("span");
