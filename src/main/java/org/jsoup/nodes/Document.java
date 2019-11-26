@@ -30,7 +30,15 @@ public class Document extends Element {
      @see #createShell
      */
     public Document(String baseUri) {
-        super(Tag.valueOf("#root", ParseSettings.htmlDefault), baseUri);
+        Tag sTag = Tag.valueOf("#root", ParseSettings.htmlDefault);
+        Element e = new Element
+                .Builder(sTag)
+                .setUri(baseUri)
+                .build();
+        if(e.childNodes == null){
+            System.out.println("ㅎㅎ null 이지롱");
+        }
+        //super(Tag.valueOf("#root", ParseSettings.htmlDefault), baseUri);
         this.location = baseUri;
     }
 
@@ -107,7 +115,13 @@ public class Document extends Element {
      @return new element
      */
     public Element createElement(String tagName) {
-        return new Element(Tag.valueOf(tagName, ParseSettings.preserveCase), this.baseUri());
+        Tag sTag = Tag.valueOf(tagName, ParseSettings.preserveCase);
+        Element e = new Element
+                .Builder(sTag)
+                .setUri(this.baseUri())
+                .build();
+        return e;
+        //return new Element(Tag.valueOf(tagName, ParseSettings.preserveCase), this.baseUri());
     }
 
     /**

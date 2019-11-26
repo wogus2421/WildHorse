@@ -146,7 +146,13 @@ public class Cleaner {
     private ElementMeta createSafeElement(Element sourceEl) {
         String sourceTag = sourceEl.tagName();
         Attributes destAttrs = new Attributes();
-        Element dest = new Element(Tag.valueOf(sourceTag), sourceEl.baseUri(), destAttrs);
+        Tag sTag = Tag.valueOf(sourceTag);
+        Element dest = new Element
+                .Builder(sTag)
+                .setUri(sourceEl.baseUri())
+                .setAttributes(destAttrs)
+                .build();
+        //Element dest = new Element(Tag.valueOf(sourceTag), sourceEl.baseUri(), destAttrs);
         int numDiscarded = 0;
 
         Attributes sourceAttrs = sourceEl.attributes();

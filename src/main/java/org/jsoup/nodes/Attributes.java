@@ -232,6 +232,7 @@ public class Attributes implements Iterable<Attribute>, Cloneable {
      @return size
      */
     public int size() {
+        System.out.println(size);
         return size;
     }
 

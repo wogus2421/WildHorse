@@ -83,10 +83,10 @@ public class Element extends Node {
     }
 
     protected Element(Builder builder) {
+        childNodes = EMPTY_NODES;
         tag = builder.tag;
         attributes = builder.attributes;
         baseUri = builder.baseUri;
-        childNodes = EMPTY_NODES;
     }
 
 
@@ -127,6 +127,7 @@ public class Element extends Node {
         if (childNodes == EMPTY_NODES) {
             childNodes = new NodeList(this, 4);
         }
+        else if(childNodes == null) System.out.println("fseknflknsefwnekfaw");
         return childNodes;
     }
 
@@ -153,8 +154,7 @@ public class Element extends Node {
     }
 
     @Override
-    public int childNodeSize() {
-        return childNodes.size();
+    public int childNodeSize() { return childNodes.size();
     }
 
     @Override
@@ -458,10 +458,13 @@ public class Element extends Node {
      */
     public Element appendChild(Node child) {
         Validate.notNull(child);
+        //System.out.println("------------------------");
 
         // was - Node#addChildren(child). short-circuits an array create and a loop.
         reparentChild(child);
         ensureChildNodes();
+        System.out.println("----------------");
+
         childNodes.add(child);
         child.setSiblingIndex(childNodes.size() - 1);
         return this;
