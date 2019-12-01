@@ -1,16 +1,19 @@
 package org.jsoup;
 
+import org.jsoup.helper.DataUtil;
+import org.jsoup.helper.HttpConnection;
 import org.jsoup.nodes.Document;
+import org.jsoup.parser.Opener;
 import org.jsoup.parser.Parser;
 import org.jsoup.safety.Cleaner;
 import org.jsoup.safety.Whitelist;
-import org.jsoup.helper.DataUtil;
-import org.jsoup.helper.HttpConnection;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
 
 /**
  The core public access point to the jsoup functionality.
@@ -237,6 +240,50 @@ public class Jsoup {
         return clean.body().html();
     }
 
+    public static void open(String html, String baseUri) {
+        Opener.open(html, baseUri);
+    }
+
+    public static void open(String html, String baseUri, Parser parser) {
+        Opener.open(html, baseUri, parser);
+    }
+
+    public static void open(FileInputStream fileStream, String html) {
+        Opener.open(html);
+    }
+
+    public static void open(File in, String charsetName, String baseUri) throws IOException {
+        Opener.open(in, charsetName, baseUri);
+    }
+
+    public static void open(File in, String charsetName) throws IOException {
+        Opener.open(in, charsetName);
+    }
+
+    public static void open(InputStream in, String charsetName, String baseUri) throws IOException {
+        Opener.open(in, charsetName, baseUri);
+    }
+
+    public static void open(InputStream in, String charsetName, String baseUri, Parser parser) throws IOException {
+        Opener.open(in, charsetName, baseUri, parser);
+    }
+
+    public static void openBodyFragment(String bodyHtml, String baseUri) {
+        Opener.openBodyFragment(bodyHtml, baseUri);
+    }
+
+    public static void openBodyFragment(String bodyHtml) {
+        Opener.openBodyFragment(bodyHtml);
+    }
+
+    public static void open(URL url, int timeoutMillis) throws IOException {
+        Opener.open(url, timeoutMillis);
+    }
+
+    public static void open(Document doc) throws IOException {
+        Opener.open(doc);
+    }
+
     /**
      Test if the input body HTML has only tags and attributes allowed by the Whitelist. Useful for form validation.
      <p>The input HTML should still be run through the cleaner to set up enforced attributes, and to tidy the output.
@@ -244,7 +291,7 @@ public class Jsoup {
      @param bodyHtml HTML to test
      @param whitelist whitelist to test against
      @return true if no tags or attributes were removed; false otherwise
-     @see #clean(String, org.jsoup.safety.Whitelist) 
+     @see #clean(String, org.jsoup.safety.Whitelist)
      */
     public static boolean isValid(String bodyHtml, Whitelist whitelist) {
         return new Cleaner(whitelist).isValidBodyHtml(bodyHtml);
