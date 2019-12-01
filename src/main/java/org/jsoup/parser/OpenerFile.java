@@ -26,7 +26,7 @@ public class OpenerFile {
         return (int)(Math.random() * 100) + 1;
     }
 
-    void open(Document doc) {
+    int open(Document doc) {
         final File f = new File(this.filePath);
         try {
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f.getPath()), "UTF8"));
@@ -34,14 +34,18 @@ public class OpenerFile {
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
+            return -1;
         }
 
         try {
             Desktop.getDesktop().browse(new URI(this.browserPath));
         } catch (IOException e) {
             e.printStackTrace();
+            return -1;
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            return -2;
         }
+       return 0;
     }
 }
