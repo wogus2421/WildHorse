@@ -103,11 +103,9 @@ public class Element extends Node {
      */
 
 
-
-
-//    public Element(String tag) {
-//        this(Tag.valueOf(tag), "", new Attributes());
-//    }
+    public Element(String tag) {
+        this(Tag.valueOf(tag), "", new Attributes());
+    }
 
     /**
      * Create a new, standalone Element. (Standalone in that is has no parent.)
@@ -118,14 +116,14 @@ public class Element extends Node {
      * @see #appendChild(Node)
      * @see #appendElement(String)
      */
-//    public Element(Tag tag, String baseUri, Attributes attributes) {
-//        Validate.notNull(tag);
-//        Validate.notNull(baseUri);
-//        childNodes = EMPTY_NODES;
-//        this.baseUri = baseUri;
-//        this.attributes = attributes;
-//        this.tag = tag;
-//    }
+    public Element(Tag tag, String baseUri, Attributes attributes) {
+        Validate.notNull(tag);
+        Validate.notNull(baseUri);
+        childNodes = EMPTY_NODES;
+        this.baseUri = baseUri;
+        this.attributes = attributes;
+        this.tag = tag;
+    }
 
     /**
      * Create a new Element from a tag and a base URI.
@@ -135,9 +133,9 @@ public class Element extends Node {
      *                string, but not null.
      * @see Tag#valueOf(String, ParseSettings)
      */
-//    public Element(Tag tag, String baseUri) {
-//        this(tag, baseUri, null);
-//    }
+    public Element(Tag tag, String baseUri) {
+        this(tag, baseUri, null);
+    }
 
     protected List<Node> ensureChildNodes() {
         if (childNodes == EMPTY_NODES) {

@@ -20,16 +20,34 @@ public class NodeTest {
         attribs.put("relHref", "/foo");
         attribs.put("absHref", "http://bar/qux");
 
-        Element noBase = new Element(tag, "", attribs);
+        //Element noBase = new Element(tag, "", attribs);
+        Element noBase = new Element
+                .Builder()
+                .tag(tag)
+                .baseUri("")
+                .attributes(attribs)
+                .build();
         assertEquals("", noBase.absUrl("relHref")); // with no base, should NOT fallback to href attrib, whatever it is
         assertEquals("http://bar/qux", noBase.absUrl("absHref")); // no base but valid attrib, return attrib
 
-        Element withBase = new Element(tag, "http://foo/", attribs);
+        // withBase = new Element(tag, "http://foo/", attribs);
+        Element withBase = new Element
+                .Builder()
+                .tag(tag)
+                .baseUri("http://foo/")
+                .attributes(attribs)
+                .build();
         assertEquals("http://foo/foo", withBase.absUrl("relHref")); // construct abs from base + rel
         assertEquals("http://bar/qux", withBase.absUrl("absHref")); // href is abs, so returns that
         assertEquals("", withBase.absUrl("noval"));
 
-        Element dodgyBase = new Element(tag, "wtf://no-such-protocol/", attribs);
+        //Element dodgyBase = new Element(tag, "wtf://no-such-protocol/", attribs);
+        Element dodgyBase = new Element
+                .Builder()
+                .tag(tag)
+                .baseUri("wtf://no-such-protocol/")
+                .attributes(attribs)
+                .build();
         assertEquals("http://bar/qux", dodgyBase.absUrl("absHref")); // base fails, but href good, so get that
         assertEquals("", dodgyBase.absUrl("relHref")); // base fails, only rel href, so return nothing
     }

@@ -98,7 +98,7 @@ public class EchoServlet extends BaseServlet {
                 String name = part.getName();
                 write(w, "Part " + name + " ContentType", part.getContentType());
                 write(w, "Part " + name + " Name", name);
-                write(w, "Part " + name + " Filename", part.getSubmittedFileName());
+                //write(w, "Part " + name + " Filename", part.getSubmittedFileName());
                 write(w, "Part " + name + " Size", String.valueOf(part.getSize()));
                 part.delete();
             }

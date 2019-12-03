@@ -245,7 +245,13 @@ public class ElementTest {
     @Test public void testHasClassDomMethods() {
         Tag tag = Tag.valueOf("a");
         Attributes attribs = new Attributes();
-        Element el = new Element(tag, "", attribs);
+        //Element el = new Element(tag, "", attribs);
+        Element el = new Element
+                .Builder()
+                .tag(tag)
+                .baseUri("")
+                .attributes(attribs)
+                .build();
         
         attribs.put("class", "toto");
         boolean hasClass = el.hasClass("toto");
@@ -1292,7 +1298,12 @@ public class ElementTest {
     public void whiteSpaceClassElement(){
 	    Tag tag = Tag.valueOf("a");
 	    Attributes attribs = new Attributes();
-	    Element el = new Element(tag, "", attribs);
+	    Element el = new Element
+                .Builder()
+                .tag(tag)
+                .baseUri("")
+                .attributes(attribs)
+                .build();
 	    
 	    attribs.put("class", "abc ");
 	    boolean hasClass = el.hasClass("ab");

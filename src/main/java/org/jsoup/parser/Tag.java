@@ -52,7 +52,7 @@ public class Tag {
      * <p>
      * Pre-defined tags (P, DIV etc) will be ==, but unknown tags are not registered and will only .equals().
      * </p>
-     * 
+     *
      * @param tagName Name of tag, e.g. "p". Case insensitive.
      * @param settings used to control tag name sensitivity
      * @return The tag, either defined or new generic.
