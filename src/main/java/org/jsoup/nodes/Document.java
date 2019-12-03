@@ -37,7 +37,6 @@ public class Document extends Element {
                 .Builder()
                 .tag(Tag.valueOf("#root", ParseSettings.htmlDefault))
                 .baseUri(baseUri));
-        this.location = baseUri;
     }
 
     /**
@@ -118,6 +117,7 @@ public class Document extends Element {
                 .tag(Tag.valueOf(tagName, ParseSettings.preserveCase))
                 .baseUri(this.baseUri())
                 .build();
+        //return new Element(Tag.valueOf(tagName, ParseSettings.preserveCase), this.baseUri());
     }
 
     /**

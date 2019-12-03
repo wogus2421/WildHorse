@@ -152,6 +152,7 @@ public class Cleaner {
                 .baseUri(sourceEl.baseUri())
                 .attributes(destAttrs)
                 .build();
+        //Element dest = new Element(Tag.valueOf(sourceTag), sourceEl.baseUri(), destAttrs);
         int numDiscarded = 0;
 
         Attributes sourceAttrs = sourceEl.attributes();

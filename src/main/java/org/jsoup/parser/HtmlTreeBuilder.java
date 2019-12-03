@@ -253,6 +253,7 @@ public class HtmlTreeBuilder extends TreeBuilder {
                 .attributes(startTag.attributes)
                 .build();
 
+        //Element el = new Element(tag, baseUri, startTag.attributes);
         insertNode(el);
         if (startTag.isSelfClosing()) {
             if (tag.isKnownTag()) {

@@ -101,11 +101,10 @@ public class Element extends Node {
      *
      * @param tag tag name
      */
-
-
     public Element(String tag) {
         this(Tag.valueOf(tag), "", new Attributes());
     }
+
 
     /**
      * Create a new, standalone Element. (Standalone in that is has no parent.)
@@ -558,7 +557,6 @@ public class Element extends Node {
      * {@code parent.appendElement("h1").attr("id", "header").text("Welcome");}
      */
     public Element appendElement(String tagName) {
-
         Element child = new Element
                 .Builder()
                 .tag(Tag.valueOf(tagName, NodeUtils.parser(this).settings()))
@@ -1585,6 +1583,7 @@ public class Element extends Node {
                 .baseUri(baseUri)
                 .attributes(attributes == null ? null : attributes.clone())
                 .build();
+        //return new Element(tag, baseUri, attributes == null ? null : attributes.clone());
     }
 
     @Override

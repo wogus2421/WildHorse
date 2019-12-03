@@ -32,6 +32,10 @@ public class FormElement extends Element {
                 .attributes(attributes));
     }
 
+    protected FormElement(Builder builder) {
+        super(builder);
+    }
+
     /**
      * Get the list of form control elements associated with this form.
      * @return form controls associated with this element.

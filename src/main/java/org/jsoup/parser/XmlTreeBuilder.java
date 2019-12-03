@@ -83,6 +83,7 @@ public class XmlTreeBuilder extends TreeBuilder {
                 .baseUri(baseUri)
                 .attributes(settings.normalizeAttributes(startTag.attributes))
                 .build();
+        //Element el = new Element(tag, baseUri, settings.normalizeAttributes(startTag.attributes));
         insertNode(el);
         if (startTag.isSelfClosing()) {
             if (!tag.isKnownTag()) // unknown tag, remember this is self closing for output. see above.
