@@ -1,4 +1,4 @@
-package main.java.org.jsoup.examples;
+package org.jsoup.examples;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,10 +14,12 @@ public class Wikipedia {
     public static void main(String[] args) throws IOException {
         Document doc = Jsoup.connect("http://en.wikipedia.org/").get();
         log(doc.title());
+
         /* This is test code for opening
         Jsoup.open(doc);
         Jsoup.open(doc);
         */
+
         Elements newsHeadlines = doc.select("#mp-itn b a");
         for (Element headline : newsHeadlines) {
             log("%s\n\t%s", headline.attr("title"), headline.absUrl("href"));

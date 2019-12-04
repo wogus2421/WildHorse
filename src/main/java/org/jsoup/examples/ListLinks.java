@@ -41,6 +41,7 @@ public class ListLinks {
         for (Element link : links) {
             print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
         }
+        Jsoup.open(doc);
     }
 
     private static void print(String msg, Object... args) {
